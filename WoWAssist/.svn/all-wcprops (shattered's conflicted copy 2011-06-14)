@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svn/!svn/ver/18/trunk/addons/WoWAssist
+END
+WoWAssist_Frames.xml
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/7/trunk/addons/WoWAssist/WoWAssist_Frames.xml
+END
+changelog.txt.txt
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/8/trunk/addons/WoWAssist/changelog.txt.txt
+END
+WoWAssist.toc
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/4/trunk/addons/WoWAssist/WoWAssist.toc
+END
+WoWAssist_Scripts.lua
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/25/trunk/addons/WoWAssist/WoWAssist_Scripts.lua
+END

@@ -1,0 +1,205 @@
+﻿<Ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="WoWAssist_Scripts.lua" />
+
+	<Frame name= "WoWAssist_Frame" parent="UIParent" movable="true" enableMouse="true">
+		<Size>
+			<AbsDimension x="110" y="105" />
+		</Size>
+		<Anchors>
+			<Anchor point="TOPLEFT">
+				<Offset x="100" y="-100" />
+			</Anchor>
+		</Anchors>
+		<Backdrop bgFile="Interface\FullScreenTextures\OutOfControl" edgeFile="Interface\DialogFrame\UI-DialogBox-Border">
+			<BackgroundInsets>
+				<AbsInset left="5" right="5" top="5" bottom="4" />
+			</BackgroundInsets>
+			<TileSize>
+				<AbsValue val="15" />
+			</TileSize>
+			<EdgeSize>
+				<AbsValue val="15" />
+			</EdgeSize>
+			<Color r="0" g="0" b="0" />
+		</Backdrop>
+
+
+		<Frames>
+			<Frame name= "WoWAssist_ToggleFrame_1" parent="WoWAssist_Frame" enableMouse="true">
+				<Size>
+					<AbsDimension x="30" y="30" />
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="8" y="-8" />
+					</Anchor>
+				</Anchors>
+				<Layers>
+					<Layer>
+						<Texture name="WoWAssist_ToggleIcon_1">
+							<Size>
+								<AbsDimension x="30" y="30" />
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset x="0" y="0" />
+								</Anchor>
+							</Anchors>
+							<Color r="1" g="1" b="1" />
+						</Texture>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnMouseDown>WoWAssist_ToggleFrame_1_OnClick();</OnMouseDown>
+				</Scripts>	
+			</Frame>
+
+			<Frame name= "WoWAssist_ToggleFrame_2" parent="WoWAssist_Frame" enableMouse="true">
+				<Size>
+					<AbsDimension x="30" y="30" />
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="8" y="-40" />
+					</Anchor>
+				</Anchors>
+				<Layers>
+					<Layer>
+						<Texture name="WoWAssist_ToggleIcon_2">
+							<Size>
+								<AbsDimension x="30" y="30" />
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset x="0" y="0" />
+								</Anchor>
+							</Anchors>
+							<Color r="1" g="1" b="1" />
+						</Texture>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnMouseDown>WoWAssist_ToggleFrame_2_OnClick();</OnMouseDown>
+				</Scripts>	
+			</Frame>			
+			<Frame name= "WoWAssist_ToggleFrame_3" parent="WoWAssist_Frame" enableMouse="true">
+				<Size>
+					<AbsDimension x="30" y="30" />
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="40" y="-40" />
+					</Anchor>
+				</Anchors>
+				<Layers>
+					<Layer>
+						<Texture name="WoWAssist_ToggleIcon_3">
+							<Size>
+								<AbsDimension x="30" y="30" />
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset x="0" y="0" />
+								</Anchor>
+							</Anchors>
+							<Color r="1" g="1" b="1" />
+						</Texture>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnMouseDown>WoWAssist_ToggleFrame_3_OnClick();</OnMouseDown>
+				</Scripts>	
+			</Frame>
+			<Frame name= "WoWAssist_ToggleFrame_4" parent="WoWAssist_Frame" enableMouse="true">
+				<Size>
+					<AbsDimension x="30" y="30" />
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="72" y="-40" />
+					</Anchor>
+				</Anchors>
+				<Layers>
+					<Layer>
+						<Texture name="WoWAssist_ToggleIcon_4">
+							<Size>
+								<AbsDimension x="30" y="30" />
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset x="0" y="0" />
+								</Anchor>
+							</Anchors>
+							<Color r="1" g="1" b="1" />
+						</Texture>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnMouseDown>WoWAssist_ToggleFrame_4_OnClick();</OnMouseDown>
+				</Scripts>	
+			</Frame>
+		</Frames>
+
+		<Layers>
+			<Layer>
+				<Texture name="WoWAssist_Data">
+					<Size>
+						<AbsDimension x="30" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="40" y="-8" />
+						</Anchor>
+					</Anchors>
+					<Color r="1" g="1" b="1" />
+				</Texture>
+			</Layer>
+				<Layer>
+				<Texture name="WoWAssist_Ability">
+					<Size>
+						<AbsDimension x="30" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="72" y="-8" />
+						</Anchor>
+					</Anchors>
+					<Color r="1" g="1" b="1" />
+				</Texture>
+			</Layer>
+			<Layer level="OVERLAY">
+				<FontString name="WoWAssist_TitleDisplay" inherits="GameFontNormal" text="WoWAssist" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="99" y="15" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="5" y="-70" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+			<Layer level="OVERLAY2">
+				<FontString name="WoWAssist_TextDisplay" inherits="GameFontNormal" text="WoWAssist" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="99" y="15" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="5" y="-83" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad>WoWAssist_Frame_OnLoad();</OnLoad>
+			<OnEvent function = "WoWAssist_Frame_OnEvent"/>
+			<OnUpdate>WoWAssist_Frame_OnUpdate();</OnUpdate>
+			<OnDragStart>self:StartMoving();</OnDragStart>
+			<OnDragStop>self:StopMovingOrSizing();</OnDragStop>
+			<OnMouseDown>self:StartMoving();</OnMouseDown>
+			<OnMouseUp>self:StopMovingOrSizing();</OnMouseUp>
+		</Scripts>
+	</Frame>
+</Ui>

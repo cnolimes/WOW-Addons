@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/7/trunk/addons/WoWAssist/modules/paladin
+END
+global.lua
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/4/trunk/addons/WoWAssist/modules/paladin/global.lua
+END
+index.xml
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/5/trunk/addons/WoWAssist/modules/paladin/index.xml
+END
+protection.lua
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/14/trunk/addons/WoWAssist/modules/paladin/protection.lua
+END
+retribution.lua
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/14/trunk/addons/WoWAssist/modules/paladin/retribution.lua
+END
+ret-notes.txt
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/9/trunk/addons/WoWAssist/modules/paladin/ret-notes.txt
+END

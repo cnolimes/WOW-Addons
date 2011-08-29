@@ -1,0 +1,79 @@
+PA.player.class				= Class of the player
+PA.player.combo 			= Combo Point Count
+PA.player.mana 				= Mana / Rage / Energy / Runic Power
+PA.player.rage 				= PA.player.mana
+PA.player.energy 			= PA.player.mana
+PA.player.focus 			= PA.player.mana
+PA.player.runicPower		= PA.player.mana
+PA.player.shard 			= Shard Count
+PA.player.eclipse 			= Eclipse State
+PA.player.nextEclipse 		= PA.player.eclipse
+PA.player.nextEclipseTime 	= GetTime()
+PA.player.holyPower 		= Holy Power Points
+PA.player.healthMax 		= Max Health of the Player
+PA.player.health 			= Current Health
+PA.player.healthPercent 	= Health Percentage
+PA.player.stance 			= Stance
+PA.player.stealthed 		= If you are ins stealth
+PA.player.hasControl 		= State of character ie. if out of control (stunned, mc'd etc)		-- Not working currently
+PA.player.petPresent 		= If you have a pet and it is alive
+PA.player.speed 			= Movement Speed
+PA.player.targetTargetIsPlayer = If your target is targeting you
+PA.player.moving			= If you are moving
+
+
+PA.player.buffs[spellId].name		= Name of the buff
+PA.player.buffs[spellId].icon		= Icon texture path
+PA.player.buffs[spellId].count		= Number of stacks
+PA.player.buffs[spellId].duration	= Normal duration of the buff
+PA.player.buffs[spellId].timeLeft 	= How much time is left on the buff
+
+
+PA.player.spells[SpellId].id 		= SpellId
+PA.player.spells[SpellId].name 		= Name of the spell
+PA.player.spells[SpellId].icon 		= Icon texture path
+PA.player.spells[SpellId].cost 		= Mana / Rage / Energy / Runic Power cost of the spell
+PA.player.spells[SpellId].isFunnel 	= Is the spell a funnel spell
+PA.player.spells[SpellId].castTime 	= Cast Time of the spell
+PA.player.spells[SpellId].minRange 	= Minimum Range of the spell (poor hunters)
+PA.player.spells[SpellId].maxRange 	= Maximum Range of the Spell
+PA.player.spells[SpellId].color 	= Color to display for casting this spell
+PA.player.spells[SpellId].focusColor = Color to display if focus casting this spell
+PA.player.spells[SpellId].cd 		= Cooldown of the spell
+
+-- ======================================================================== --
+-- 
+-- ======================================================================== --
+
+-- ======================================================================== --
+-- PA.target or PA.focus
+-- ======================================================================== --
+
+PA.target.healthMax 		= Target Maximum Health
+PA.target.health 			= Target Current Health
+PA.target.healthPercent 	= Percentage Health Left on the Target
+PA.target.minRange, PA.target.maxRange = 		PA:GetDistance("target")
+PA.target.isFriend 			= if the target is friendly
+PA.target.classification 	= worldboss, normal
+PA.target.creatureType 		= 
+PA.target.creatureFamily 	= Creature Family of the target (beast, elemental, undead, humanoid)
+PA.target.guid 				= GUID of the Target, used for detecting target switches
+PA.target.name 				= Name of the Target
+
+
+PA.target.debuffs[spellId].name		= Name of the Debuff
+PA.target.debuffs[spellId].icon		= Icon texture path
+PA.target.debuffs[spellId].count	= Stacks of Debuff
+PA.target.debuffs[spellId].duration = Duration of the debuff
+PA.target.debuffs[spellId].timeLeft = How much time is left on the debuff
+
+
+-- ======================================================================== --
+-- Detect if the focus is an enemy and set a boolean value to be checked 
+-- when deciding if to focus cast or not.
+-- ======================================================================== --
+focusCast = false
+if (focus ~= nil and not focus.isFriend and focus.guid ~= target.guid) then	-- Focus Present and is Enemy and is not the target
+	PA:SetText("Focus Cast: On")
+	focusCast = true
+end

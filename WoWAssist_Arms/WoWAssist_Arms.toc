@@ -1,0 +1,8 @@
+## Title: WoWAssist_Arms
+## Version: 1.0
+## Author: Mike
+## Interface: 40300
+## Notes: Yes
+
+WA_Arms_Frames.xml
+WA_Arms_Scripts.lua

@@ -1,0 +1,174 @@
+-- actions ---------------------------------------------------------------------
+local actions = {
+	-- inquisition, apply, 3 hp
+	inq = {
+		Spell = Inquisition,
+		GetCD = function()
+			if BuffInquisition <= 0 and (HolyPower >= InquisitionApplyMin or BuffDivinePurpose > 0) then
+				return 0
+			else
+				return 100
+			end
+		end,
+		info = "apply Inquisition",
+	},
+	inqahp = {
+		Spell = Inquisition,
+		GetCD = function()
+			if BuffInquisition <= 0 and HolyPower >= InquisitionApplyMin then
+				return 0
+			else
+				return 100
+			end
+		end,
+		info = "apply Inquisition at x HP",
+	},
+	inqadp = {
+		Spell = Inquisition,
+		GetCD = function()
+			if BuffInquisition <= 0 and BuffDivinePurpose > 0 then
+				return 0
+			else
+				return 100
+			end
+		end,
+		info = "apply Inquisition at DP",
+	},
+	inqr = {
+		Spell = Inquisition,
+		GetCD = function()
+			if BuffInquisition <= InquisitionRefresh and (HolyPower >= InquisitionRefreshMin or BuffDivinePurpose > 0) then
+				return 0
+			else
+				return 100
+			end
+		end,
+		info = "refresh Inquisition",
+	},
+	inqrhp = {
+		Spell = Inquisition,
+		GetCD = function()
+			if BuffInquisition <= InquisitionRefresh and HolyPower >= InquisitionRefreshMin then
+				return 0
+			else
+				return 100
+			end
+		end,
+		info = "refresh Inquisition at x HP",
+	},
+	inqrdp = {
+		Spell = Inquisition,
+		GetCD = function()
+			if BuffInquisition <= InquisitionRefresh and BuffDivinePurpose > 0 then
+				return 0
+			else
+				return 100
+			end
+		end,
+		info = "refresh Inquisition at DP",
+	},
+	exoud = {
+		Spell = Exorcism,
+		GetCD = function()
+			if (targetType == db.undead or targetType == db.demon) and BuffArtOfWar > 0 then
+				return 0
+			else
+				return 100
+			end
+		end,
+		info = "Exorcism with guaranteed crit",
+	},
+	exo = {
+		Spell = Exorcism,
+		GetCD = function()
+			if BuffArtOfWar > 0 then
+				return 0
+			else
+				return 100
+			end
+		end,
+		info = "Exorcism",
+	},
+	how = {
+		Spell = HammerOfWrath,
+		GetCD = function()
+			if IsUsableSpell(HammerOfWrathID) then
+				return GetCooldown(HammerOfWrathID)
+			else
+				return 100
+			end
+		end,
+		info = "Hammer of Wrath",
+	},
+	tv = {
+		Spell = TemplarsVerdict,
+		GetCD = function()
+			if HolyPower >= 3 or BuffDivinePurpose > 0 then
+				return 0
+			else
+				return 100
+			end
+		end,
+		info = "Templar's Verdict",
+	},
+	tvhp = {
+		Spell = TemplarsVerdict,
+		GetCD = function()
+			if HolyPower >= 3 then
+				return 0
+			else
+				return 100
+			end
+		end,
+		info = "Templar's Verdict at 3 HP",
+	},
+	tvdp = {
+		Spell = TemplarsVerdict,
+		GetCD = function()
+			if BuffDivinePurpose > 0 then
+				return 0
+			else
+				return 100
+			end
+		end,
+		info = "Templar's Verdict at DP",
+	},
+	cs = {
+		Spell = CrusaderStrike,
+		GetCD = function()
+			if HolyPower >= 3 then 
+				return 100
+			else
+				return GetCooldown(CrusaderStrikeID)
+			end
+		end,
+		info = "Crusader Strike",
+	},
+	j = {
+		Spell = Judgement,
+		GetCD = function()
+				return GetCooldown(JudgementID) + db.jClash
+			return 100
+		end,
+		info = "Judgement",
+	},
+	hw = {
+		Spell = HolyWrath,
+		GetCD = function()
+			return GetCooldown(HolyWrathID)
+		end,
+		info = "Holy Wrath",
+	},
+	cons = {
+		Spell = Consecration,
+		GetCD = function()
+			if (UnitPower("player") > ConsecrateManaMin) then
+				return GetCooldown(ConsecrationID)
+			else
+				return 100
+			end
+		end,
+		info = "Consecration",
+	},
+}
+mod.actions = actions

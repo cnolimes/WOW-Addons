@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/2/trunk/addons/WoWAssist_Unholy
+END
+WA_Unholy_Frames.xml
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2/trunk/addons/WoWAssist_Unholy/WA_Unholy_Frames.xml
+END
+WoWAssist_Unholy.toc
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2/trunk/addons/WoWAssist_Unholy/WoWAssist_Unholy.toc
+END
+WA_Unholy_Scripts.lua
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/2/trunk/addons/WoWAssist_Unholy/WA_Unholy_Scripts.lua
+END

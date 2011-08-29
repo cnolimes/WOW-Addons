@@ -1,0 +1,9 @@
+## Title: WoWAssist
+## Version: 1.0
+## Author: Mike, Will, Steve
+## Interface: 40200
+## Notes: Yes
+
+WoWAssist_Frames.xml
+WoWAssist_Scripts.lua
+modules\classes.xml

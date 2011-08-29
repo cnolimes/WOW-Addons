@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/26/trunk/addons/WoWAssist/modules/druid
+END
+global.lua
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/26/trunk/addons/WoWAssist/modules/druid/global.lua
+END
+index.xml
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/26/trunk/addons/WoWAssist/modules/druid/index.xml
+END
+feral.lua
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/29/trunk/addons/WoWAssist/modules/druid/feral.lua
+END

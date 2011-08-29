@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/4/trunk/addons/WoWAssist/modules/priest
+END
+global.lua
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/12/trunk/addons/WoWAssist/modules/priest/global.lua
+END
+shadow.lua
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/14/trunk/addons/WoWAssist/modules/priest/shadow.lua
+END
+index.xml
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/12/trunk/addons/WoWAssist/modules/priest/index.xml
+END

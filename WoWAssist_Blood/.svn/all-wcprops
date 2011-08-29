@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/2/trunk/addons/WoWAssist_Blood
+END
+WA_Blood_Frames.xml
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/2/trunk/addons/WoWAssist_Blood/WA_Blood_Frames.xml
+END
+WoWAssist_Blood.toc
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/2/trunk/addons/WoWAssist_Blood/WoWAssist_Blood.toc
+END
+WA_Blood_Scripts.lua
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2/trunk/addons/WoWAssist_Blood/WA_Blood_Scripts.lua
+END

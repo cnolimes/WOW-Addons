@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/4/trunk/addons/WoWAssist/modules/warrior
+END
+global.lua
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/15/trunk/addons/WoWAssist/modules/warrior/global.lua
+END
+index.xml
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/15/trunk/addons/WoWAssist/modules/warrior/index.xml
+END
+protection.lua
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/15/trunk/addons/WoWAssist/modules/warrior/protection.lua
+END

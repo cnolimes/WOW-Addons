@@ -1,0 +1,8 @@
+## Title: WoWAssist_Shadow
+## Version: 1.0
+## Author: Mike
+## Interface: 40300
+## Notes: Yes
+
+WA_Shadow_Frames.xml
+WA_Shadow_Scripts.lua

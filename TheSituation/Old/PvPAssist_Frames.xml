@@ -1,0 +1,274 @@
+﻿<Ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="PvPAssist_Scripts.lua" />
+	
+	<Frame name= "PvPAssist_Status_Frame" parent="UIParent" movable="true" enableMouse="true">
+		<Size>
+			<AbsDimension x="200" y="105" />
+		</Size>
+		<Anchors>
+			<Anchor point="TOPLEFT">
+				<Offset x="100" y="-100" />
+			</Anchor>
+		</Anchors>
+		<Backdrop bgFile="Interface\FullScreenTextures\OutOfControl" edgeFile="Interface\DialogFrame\UI-DialogBox-Border">
+			<BackgroundInsets>
+				<AbsInset left="5" right="5" top="5" bottom="4" />
+			</BackgroundInsets>
+			<TileSize>
+				<AbsValue val="15" />
+			</TileSize>
+			<EdgeSize>
+				<AbsValue val="15" />
+			</EdgeSize>
+			<Color r="0" g="0" b="0" />
+		</Backdrop>
+		
+		<Layers>		
+			<Layer level="OVERLAY">
+				<FontString name="PvPAssist_Status_T1" inherits="GameFontNormal" text="PvPAssist" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="190" y="15" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="8" y="-8" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+			<Layer level="OVERLAY2">
+				<FontString name="PvPAssist_Status_T2" inherits="GameFontNormal" text="" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="190" y="15" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="8" y="-22" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+			<Layer level="OVERLAY2">
+				<FontString name="PvPAssist_Status_T3" inherits="GameFontNormal" text="" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="190" y="15" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="8" y="-38" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+			<Layer level="OVERLAY2">
+				<FontString name="PvPAssist_Status_T4" inherits="GameFontNormal" text="" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="190" y="15" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="8" y="-52" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>			
+
+			<Layer level="OVERLAY2">
+				<FontString name="PvPAssist_Status_T5" inherits="GameFontNormal" text="" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="190" y="15" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="8" y="-66" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+			<Layer level="OVERLAY2">
+				<FontString name="PvPAssist_Status_T6" inherits="GameFontNormal" text="" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="190" y="15" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="8" y="-80" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+			<Layer level="OVERLAY2">
+				<FontString name="PvPAssist_Status_T7" inherits="GameFontNormal" text="" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="190" y="15" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="8" y="-94" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>			
+		</Layers>
+		<Scripts>
+			<OnLoad>PvPAssist_Status_Frame_OnLoad();</OnLoad>
+			<OnEvent function = "PvPAssist_Status_Frame_OnEvent"/>
+			<OnUpdate>PvPAssist_Status_Frame_OnUpdate();</OnUpdate>
+			<OnDragStart>self:StartMoving();</OnDragStart>
+			<OnDragStop>self:StopMovingOrSizing();</OnDragStop>
+			<OnMouseDown>self:StartMoving();</OnMouseDown>
+			<OnMouseUp>self:StopMovingOrSizing();</OnMouseUp>
+		</Scripts>
+	</Frame>
+	
+
+	<Frame name= "PvPAssist_Frame" parent="UIParent" movable="true" enableMouse="true">
+		<Size>
+			<AbsDimension x="150" y="105" />
+		</Size>
+		<Anchors>
+			<Anchor point="TOPLEFT">
+				<Offset x="100" y="-100" />
+			</Anchor>
+		</Anchors>
+		<Backdrop bgFile="Interface\FullScreenTextures\OutOfControl" edgeFile="Interface\DialogFrame\UI-DialogBox-Border">
+			<BackgroundInsets>
+				<AbsInset left="5" right="5" top="5" bottom="4" />
+			</BackgroundInsets>
+			<TileSize>
+				<AbsValue val="15" />
+			</TileSize>
+			<EdgeSize>
+				<AbsValue val="15" />
+			</EdgeSize>
+			<Color r="0" g="0" b="0" />
+		</Backdrop>
+
+
+		<Layers>
+			<Layer>
+				<Texture name="PvPAssist_Data">
+					<Size>
+						<AbsDimension x="30" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="8" y="-8" />
+						</Anchor>
+					</Anchors>
+					<Color r="1" g="1" b="1" />
+				</Texture>
+			</Layer>
+			<Layer>
+				<Texture name="PvPAssist_Ability">
+					<Size>
+						<AbsDimension x="30" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="8" y="-40" />
+						</Anchor>
+					</Anchors>
+					<Color r="1" g="1" b="1" />
+				</Texture>
+			</Layer>
+			<Layer>
+				<Texture name="PvPAssist_Help">
+					<Size>
+						<AbsDimension x="8" y="-72" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="72" y="-8" />
+						</Anchor>
+					</Anchors>
+					<Color r="1" g="1" b="1" />
+				</Texture>
+			</Layer>
+			
+			<Layer level="OVERLAY">
+				<FontString name="PvPAssist_TitleDisplay" inherits="GameFontNormal" text="PvPAssist" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="99" y="15" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="40" y="-8" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+			<Layer level="OVERLAY2">
+				<FontString name="PvPAssist_TextDisplay" inherits="GameFontNormal" text="" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="99" y="15" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="40" y="-22" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+			<Layer level="OVERLAY2">
+				<FontString name="PvPAssist_AbilityDisplay" inherits="GameFontNormal" text="" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="99" y="15" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="40" y="-38" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+			<Layer level="OVERLAY2">
+				<FontString name="PvPAssist_AbilityDisplay2" inherits="GameFontNormal" text="" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="99" y="15" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="40" y="-54" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>			
+
+			<Layer level="OVERLAY2">
+				<FontString name="PvPAssist_DebugDisplay" inherits="GameFontNormal" text="" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="99" y="15" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="40" y="-75" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+			<Layer level="OVERLAY2">
+				<FontString name="PvPAssist_DebugDisplay2" inherits="GameFontNormal" text="" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="99" y="15" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="40" y="-85" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+			
+		</Layers>
+		<Scripts>
+			<OnLoad>PvPAssist_Frame_OnLoad();</OnLoad>
+			<OnEvent function = "PvPAssist_Frame_OnEvent"/>
+			<OnUpdate>PvPAssist_Frame_OnUpdate();</OnUpdate>
+			<OnDragStart>self:StartMoving();</OnDragStart>
+			<OnDragStop>self:StopMovingOrSizing();</OnDragStop>
+			<OnMouseDown>self:StartMoving();</OnMouseDown>
+			<OnMouseUp>self:StopMovingOrSizing();</OnMouseUp>
+		</Scripts>
+	</Frame>
+</Ui>

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/2/trunk/addons/WoWAssist_Marksman
+END
+WoWAssist_Marksman.toc
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/2/trunk/addons/WoWAssist_Marksman/WoWAssist_Marksman.toc
+END
+WA_Marksman_Scripts.lua
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/2/trunk/addons/WoWAssist_Marksman/WA_Marksman_Scripts.lua
+END
+WA_Marksman_Frames.xml
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/2/trunk/addons/WoWAssist_Marksman/WA_Marksman_Frames.xml
+END

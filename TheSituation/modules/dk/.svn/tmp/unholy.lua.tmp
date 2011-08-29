@@ -1,0 +1,529 @@
+-- don't load if class is wrong
+local _, class = UnitClass("player")
+if class ~= "DEATHKNIGHT" then return end
+
+-- mod name in lower case
+local modName = "Unholy"
+local version = 1
+
+--================== Initialize Variables =====================
+local Spell1 = nil
+local Spell2 = nil
+local Spell3 = nil
+
+-- create a module in the main addon
+local mod = WA:RegisterClassModule(modName)
+
+-- any error sets this to false
+local enabled = true
+
+--================== Initialize Spec Variables =====================
+local StartTime					= GetTime()
+local ScourgeStrikeFinish 		= StartTime
+local FesteringStrikeFinish 	= StartTime
+local IcyTouchFinish 			= StartTime
+local PlagueStrikeFinish		= StartTime
+local DeathStrikeFinish 		= StartTime
+local BloodBoilFinish 			= StartTime
+local DarkTransformationFinish 	= StartTime
+local BloodTapFinish 			= StartTime
+local PestilenceFinish 			= StartTime
+local HornOfWinterFinish 		= StartTime
+local DarkTransformationFinish 	= StartTime
+local DarkTransformationHoldoffTime	= 10
+<<<<<<< .mine
+local GCD_Duration				= 1.0
+=======
+>>>>>>> .r14
+
+
+function mod.rotation(StartTime, GCDTimeLeft)
+	if (enabled) then
+		RunicPower = UnitPower("player")	
+		Health = UnitHealth("player")
+		HealthMax = UnitHealthMax("player")
+		HealthPercent = (Health / HealthMax) * 100
+
+<<<<<<< .mine
+		GCDTimeLeft = WoWAssist:GetGCD()
+
+		-- ============================ Scourge Strike =============================
+		-- Outputs:
+		-- ScourgeStrikeCD 	
+		--------------------------------------
+		ScourgeStrikeStart, ScourgeStrikeDuration, _ = GetSpellCooldown("Scourge Strike")
+		if (ScourgeStrikeStart ~= 0) then
+			if (ScourgeStrikeDuration > GCD_Duration) then			-- Calc CD based on a non GCD duration 
+				ScourgeStrikeFinish = ScourgeStrikeStart + ScourgeStrikeDuration
+				ScourgeStrikeCD = ScourgeStrikeFinish - GetTime()
+			else
+				if (ScourgeStrikeFinish - GetTime() > 0) then		--check if finish is even relevant, if not cd = 0
+					if (ScourgeStrikeFinish - (ScourgeStrikeStart + ScourgeStrikeDuration) - ShowDataTimeFactor > 0) then
+						ScourgeStrikeCD = 0
+					else
+						ScourgeStrikeCD = ScourgeStrikeFinish - GetTime()
+					end
+				else
+					ScourgeStrikeCD = 0
+				end
+			end
+			
+		else
+			ScourgeStrikeCD = 0
+		end
+
+		-- ============================ IcyTouch ============================
+		-- Outputs:
+		-- IcyTouchCD
+		--------------------------------------
+		IcyTouchStart, IcyTouchDuration, _ = GetSpellCooldown("Icy Touch")
+		if (IcyTouchStart ~= 0) then
+			if (IcyTouchDuration > GCD_Duration) then			-- Calc CD based on a non GCD duration 
+				IcyTouchFinish = IcyTouchStart + IcyTouchDuration
+				IcyTouchCD = IcyTouchFinish - GetTime()
+			else
+				if (IcyTouchFinish - GetTime() > 0) then		--check if finish is even relevant, if not cd = 0
+					if (IcyTouchFinish - (IcyTouchStart + IcyTouchDuration) - ShowDataTimeFactor > 0) then
+						IcyTouchCD = 0
+					else
+						IcyTouchCD = IcyTouchFinish - GetTime()
+					end
+				else
+					IcyTouchCD = 0
+				end
+			end
+			
+		else
+			IcyTouchCD = 0
+		end
+
+		IcyTouchName, _, _, _, _, IcyTouchDuration, IcyTouchExpirationTime, IcyTouchUnitCaster, _ = UnitDebuff("target", "Frost Fever")
+		if (IcyTouchName ~= nil and IcyTouchUnitCaster == "player") then
+			IcyTouchCD = 30
+		end
+		-- ============================ PlagueStrike ============================
+		-- Outputs:
+		--PlagueStrikeCD
+		--------------------------------------
+		PlagueStrikeStart, PlagueStrikeDuration, _ = GetSpellCooldown("Plague Strike")
+		if (PlagueStrikeStart ~= 0) then
+			if (PlagueStrikeDuration > GCD_Duration) then			-- Calc CD based on a non GCD duration 
+				PlagueStrikeFinish = PlagueStrikeStart + PlagueStrikeDuration
+				PlagueStrikeCD = PlagueStrikeFinish - GetTime()
+			else
+				if (PlagueStrikeFinish - GetTime() > 0) then		--check if finish is even relevant, if not cd = 0
+					if (PlagueStrikeFinish - (PlagueStrikeStart + PlagueStrikeDuration) - ShowDataTimeFactor > 0) then
+						PlagueStrikeCD = 0
+					else
+						PlagueStrikeCD = PlagueStrikeFinish - GetTime()
+					end
+				else
+					PlagueStrikeCD = 0
+				end
+			end
+			
+		else
+			PlagueStrikeCD = 0
+		end
+
+		PlagueStrikeName, _, _, _, _, PlagueStrikeDuration, PlagueStrikeExpirationTime, PlagueStrikeUnitCaster, _ = UnitDebuff("target", "Blood Plague")
+		if (PlagueStrikeName ~= nil and PlagueStrikeUnitCaster == "player") then
+			PlagueStrikeCD = 30
+		end
+
+		-- ============================ DeathStrike ============================
+		-- Outputs:
+		-- DeathStrikeCD
+		--------------------------------------
+		DeathStrikeStart, DeathStrikeDuration, _ = GetSpellCooldown("Death Strike")
+		if (DeathStrikeStart ~= 0) then
+			if (DeathStrikeDuration > GCD_Duration) then			-- Calc CD based on a non GCD duration 
+				DeathStrikeFinish = DeathStrikeStart + DeathStrikeDuration
+				DeathStrikeCD = DeathStrikeFinish - GetTime()
+			else
+				if (DeathStrikeFinish - GetTime() > 0) then		--check if finish is even relevant, if not cd = 0
+					if (DeathStrikeFinish - (DeathStrikeStart + DeathStrikeDuration) - ShowDataTimeFactor > 0) then
+						DeathStrikeCD = 0
+					else
+						DeathStrikeCD = DeathStrikeFinish - GetTime()
+					end
+				else
+					DeathStrikeCD = 0
+				end
+			end
+			
+		else
+			DeathStrikeCD = 0
+		end
+
+=======
+		ScourgeStrikeCD, ScourgeStrikeFinish 		= WA:GetActualSpellCD(ScourgeStrikeFinish, "Scourge Strike")
+		IcyTouchCD, IcyTouchFinish					= WA:GetActualSpellCD(IcyTouchFinish, "Icy Touch")
+		PlagueStrikeCD, PlagueStrikeFinish			= WA:GetActualSpellCD(PlagueStrikeFinish, "Plague Strike")
+		DeathStrikeCD, DeathStrikeFinish			= WA:GetActualSpellCD(DeathStrikeFinish, "Death Strike")
+		BloodTapCD, BloodTapFinish					= WA:GetActualSpellCD(BloodTapFinish, "Blood Tap")
+		BloodBoilCD, BloodBoilFinish				= WA:GetActualSpellCD(BloodBoilFinish, "Blood Boil")
+		PestilenceCD, PestilenceFinish				= WA:GetActualSpellCD(PestilenceFinish, "Pestilence")
+		FesteringStrikeCD, FesteringStrikeFinish 	= WA:GetActualSpellCD(FesteringStrikeFinish, "Festering Strike")
+		HornOfWinterCD, HornOfWinterFinish 			= WA:GetActualSpellCD(HornOfWinterFinish, "Horn of Winter")
+		DarkTransformationCD, DarkTransformationFinish = WA:GetActualSpellCD(DarkTransformationFinish, "Dark Transformation")
+		
+>>>>>>> .r14
+		-- ============================ Outbreak ============================
+		-- Outputs:
+		-- OutbreakCD
+		--------------------------------------
+		OutbreakStart, OutbreakDuration, _ = GetSpellCooldown("Outbreak")
+		OutbreakCD = OutbreakStart + OutbreakDuration - GetTime()
+		if (OutbreakCD < 0) then
+			OutbreakCD = 0
+		end
+<<<<<<< .mine
+	
+		-- ============================ BloodTap ============================
+		-- Outputs:
+		-- BloodTapCD
+		--------------------------------------
+		BloodTapStart, BloodTapDuration, _ = GetSpellCooldown("Blood Tap")
+		if (BloodTapStart ~= 0) then
+			if (BloodTapDuration > GCD_Duration) then			-- Calc CD based on a non GCD duration 
+				BloodTapFinish = BloodTapStart + BloodTapDuration
+				BloodTapCD = BloodTapFinish - GetTime()
+			else
+				if (BloodTapFinish - GetTime() > 0) then		--check if finish is even relevant, if not cd = 0
+					if (BloodTapFinish - (BloodTapStart + BloodTapDuration) - ShowDataTimeFactor > 0) then
+						BloodTapCD = 0
+					else
+						BloodTapCD = BloodTapFinish - GetTime()
+					end
+				else
+					BloodTapCD = 0
+				end
+			end
+			
+		else
+			BloodTapCD = 0
+		end
+=======
+		
+		
+		ShadowInfusionCount 	= WA:GetPetBuffCount("Shadow Infusion")
+		SuddenDoomCD			= WA:GetBuff("Sudden Doom")
+		RunicCorruptionCD		= WA:GetBuff("Runic Corruption")
+		PetDarkTransformationCD = WA:GetPetBuff("Dark Transformation")
+		
+		FrostFeverCD			= WA:GetTargetDebuff("Frost Fever")
+		BloodPlagueCD			= WA:GetTargetDebuff("Blood Plague")
+>>>>>>> .r14
+
+<<<<<<< .mine
+		-- ============================ BloodBoil ============================
+		-- Outputs:
+		-- BloodBoilCD
+		--------------------------------------
+		BloodBoilStart, BloodBoilDuration, _ = GetSpellCooldown("Blood Boil")
+		if (BloodBoilStart ~= 0) then
+			if (BloodBoilDuration > GCD_Duration) then			-- Calc CD based on a non GCD duration 
+				BloodBoilFinish = BloodBoilStart + BloodBoilDuration
+				BloodBoilCD = BloodBoilFinish - GetTime()
+			else
+				if (BloodBoilFinish - GetTime() > 0) then		--check if finish is even relevant, if not cd = 0
+					if (BloodBoilFinish - (BloodBoilStart + BloodBoilDuration) - ShowDataTimeFactor > 0) then
+						BloodBoilCD = 0
+					else
+						BloodBoilCD = BloodBoilFinish - GetTime()
+					end
+				else
+					BloodBoilCD = 0
+				end
+			end
+			
+		else
+			BloodBoilCD = 0
+=======
+		-- Disable if Toggled
+		if (WA.Toggle_Do_2 == false) then
+			DarkTransformationCD = 30
+>>>>>>> .r14
+		end
+<<<<<<< .mine
+
+		-- ============================ Pestilence ============================
+		-- Outputs:
+		-- PestilenceCD
+		--------------------------------------
+		PestilenceStart, PestilenceDuration, _ = GetSpellCooldown("Pestilence")
+		if (PestilenceStart ~= 0) then
+			if (PestilenceDuration > GCD_Duration) then			-- Calc CD based on a non GCD duration 
+				PestilenceFinish = PestilenceStart + PestilenceDuration
+				PestilenceCD = PestilenceFinish - GetTime()
+			else
+				if (PestilenceFinish - GetTime() > 0) then		--check if finish is even relevant, if not cd = 0
+					if (PestilenceFinish - (PestilenceStart + PestilenceDuration) - ShowDataTimeFactor > 0) then
+						PestilenceCD = 0
+					else
+						PestilenceCD = PestilenceFinish - GetTime()
+					end
+				else
+					PestilenceCD = 0
+				end
+			end
+			
+		else
+			PestilenceCD = 0
+=======
+	
+		-- Hold off on DC's until enough RP for Gargoyle
+		if(WA.Toggle_Do_1 == false) then
+			RunicPower = RunicPower - 60
+>>>>>>> .r14
+		end
+<<<<<<< .mine
+		
+		-- ============================ FesteringStrike ============================
+		-- Outputs:
+		-- FesteringStrikeCD
+		--------------------------------------
+		FesteringStrikeStart, FesteringStrikeDuration, _ = GetSpellCooldown("Festering Strike")
+		if (FesteringStrikeStart ~= 0) then
+			if (FesteringStrikeDuration > GCD_Duration) then			-- Calc CD based on a non GCD duration 
+				FesteringStrikeFinish = FesteringStrikeStart + FesteringStrikeDuration
+				FesteringStrikeCD = FesteringStrikeFinish - GetTime()
+			else
+				if (FesteringStrikeFinish - GetTime() > 0) then		--check if finish is even relevant, if not cd = 0
+					if (FesteringStrikeFinish - (FesteringStrikeStart + FesteringStrikeDuration) - ShowDataTimeFactor > 0) then
+						FesteringStrikeCD = 0
+					else
+						FesteringStrikeCD = FesteringStrikeFinish - GetTime()
+					end
+				else
+					FesteringStrikeCD = 0
+				end
+			end
+			
+		else
+			FesteringStrikeCD = 0
+		end
+		-- ============================ HornOfWinter ============================
+		-- Outputs:
+		-- HornOfWinterCD
+		--------------------------------------
+		HornOfWinterStart, HornOfWinterDuration, _ = GetSpellCooldown("Horn of Winter")
+		if (HornOfWinterStart ~= 0) then
+			if (HornOfWinterDuration > GCD_Duration) then			-- Calc CD based on a non GCD duration 
+				HornOfWinterFinish = HornOfWinterStart + HornOfWinterDuration
+				HornOfWinterCD = HornOfWinterFinish - GetTime()
+			else
+				if (HornOfWinterFinish - GetTime() > 0) then		--check if finish is even relevant, if not cd = 0
+					if (HornOfWinterFinish - (HornOfWinterStart + HornOfWinterDuration) - ShowDataTimeFactor > 0) then
+						HornOfWinterCD = 0
+					else
+						HornOfWinterCD = HornOfWinterFinish - GetTime()
+					end
+				else
+					HornOfWinterCD = 0
+				end
+			end
+			
+		else
+			HornOfWinterCD = 0
+		end
+=======
+>>>>>>> .r14
+
+<<<<<<< .mine
+
+		-- ============================ DarkTransformation ============================
+		-- Outputs:
+		-- DarkTransformationCD
+		--------------------------------------
+		DarkTransformationStart, DarkTransformationDuration, _ = GetSpellCooldown("Dark Transformation")
+		if (DarkTransformationStart ~= 0) then
+			if (DarkTransformationDuration > GCD_Duration) then			-- Calc CD based on a non GCD duration 
+				DarkTransformationFinish = DarkTransformationStart + DarkTransformationDuration
+				DarkTransformationCD = DarkTransformationFinish - GetTime()
+			else
+				if (DarkTransformationFinish - GetTime() > 0) then		--check if finish is even relevant, if not cd = 0
+					if (DarkTransformationFinish - (DarkTransformationStart + DarkTransformationDuration) - ShowDataTimeFactor > 0) then
+						DarkTransformationCD = 0
+					else
+						DarkTransformationCD = DarkTransformationFinish - GetTime()
+					end
+				else
+					DarkTransformationCD = 0
+				end
+			end
+			
+		else
+			DarkTransformationCD = 0
+=======
+		-- Hold off on DC's until enough RP for Mind Freeze
+		if(WA.Toggle_Do_4 == false) then
+			RunicPower = RunicPower - 20
+>>>>>>> .r14
+		end
+		-- Disable if Toggled
+		if (WoWAssist.Toggle_Do_2 == false) then
+			DarkTransformationCD = 30
+		end
+		
+		-- ============================ DeathCoil ============================
+		-- Outputs:
+		-- DeathCoilCD
+		--------------------------------------
+		_, _, _, DeathCoilCost, _, _, _, _, _ = GetSpellInfo("Death Coil")
+		if (RunicPower < DeathCoilCost) then
+			DeathCoilCD = 30
+		else
+			DeathCoilCD = 0
+		end
+		
+		IcyTouchName, _, _, _, _, IcyTouchDuration, IcyTouchExpirationTime, IcyTouchUnitCaster, _ = UnitDebuff("target", "Frost Fever")
+		if (IcyTouchName ~= nil and IcyTouchUnitCaster == "player") then
+			IcyTouchCD = 30
+		end
+		
+<<<<<<< .mine
+		-- Hold off on DC's until enough RP for Gargoyle
+		if(WoWAssist.Toggle_Do_1 == false) then
+			RunicPower = RunicPower - 60
+		end
+=======
+		PlagueStrikeName, _, _, _, _, PlagueStrikeDuration, PlagueStrikeExpirationTime, PlagueStrikeUnitCaster, _ = UnitDebuff("target", "Blood Plague")
+		if (PlagueStrikeName ~= nil and PlagueStrikeUnitCaster == "player") then
+			PlagueStrikeCD = 30
+		end		
+>>>>>>> .r14
+
+
+
+		--====================================================================
+		--============================== LOGIC TREE ===========================
+		--====================================================================
+		if (IcyTouchCD == 0 ) then
+			if (OutbreakCD == 0) then
+				Spell1 = Outbreak
+			else
+				Spell1 = IcyTouch
+			end
+		elseif (PlagueStrikeCD == 0 ) then
+			if (OutbreakCD == 0) then
+				Spell1 = Outbreak
+			else
+				Spell1 = PlagueStrike
+			end
+		elseif (FrostFeverCD < 3 or BloodPlagueCD < 3) then
+			if (FesteringStrikeCD == 0) then
+				Spell1 = FesteringStrike
+			elseif (DeathCoilCD == 0 and PetDarkTransformationCD >= DarkTransformationHoldoffTime) then
+				Spell1 = DeathCoil
+			elseif (HornOfWinterCD == 0) then
+				Spell1 = HornOfWinter
+			elseif (OutbreakCD == 0) then
+				Spell1 = Outbreak
+			else
+				Spell1 = Delay20
+			end
+		elseif (ShadowInfusionCount == 5) then
+			if (DarkTransformationCD == 0) then
+				Spell1 = DarkTransformation
+			elseif (BloodTapCD == 0) then
+				Spell1 = BloodTap
+			elseif (FesteringStrikeCD == 0) then
+				Spell1 = FesteringStrike
+			elseif ((DeathCoilCD == 0 and PetDarkTransformationCD >= DarkTransformationHoldoffTime) or SuddenDoomCD == 0) then
+				Spell1 = DeathCoil
+			elseif (HornOfWinterCD == 0) then
+				Spell1 = HornOfWinter
+			elseif (OutbreakCD == 0) then
+				Spell1 = Outbreak
+			else
+				Spell1 = Delay20
+			end
+<<<<<<< .mine
+=======
+		elseif (SuddenDoomCD == 0 or RunicPower >= 80) then
+			Spell1 = DeathCoil
+		elseif (ScourgeStrikeCD == 0) then
+			Spell1 = ScourgeStrike
+		elseif (DeathCoilCD == 0 and PetDarkTransformationCD >= DarkTransformationHoldoffTime) then
+			Spell1 = DeathCoil
+		elseif (FesteringStrikeCD == 0) then
+			Spell1 = FesteringStrike
+		else
+			if (BloodTapCD == 0) then
+				Spell1 = BloodTap
+			elseif (HornOfWinterCD == 0) then
+				Spell1 = HornOfWinter
+			else
+				Spell1 = Delay20
+			end
+>>>>>>> .r14
+		end
+<<<<<<< .mine
+		-- Swap SS and NS 
+		if(Spell1 == ScourgeStrike and WoWAssist.Toggle_Do_3) then
+			Spell1 = NecroticStrike
+		end
+		-- WoWAssist:SetTitle(GCDTimeLeft)
+		WoWAssist:SpellFire(Spell1, Spell2, Spell3)
+=======
+		WA:SpellFire(Spell1, Spell2, Spell3)
+>>>>>>> .r14
+	end
+end
+
+
+
+function mod.OnInitialize()
+	mod.checkSpec()
+	if (enabled) then
+<<<<<<< .mine
+		WoWAssist:Print("Initializing Unholy")
+		WoWAssist:SetToggle(1, 0, "Death Coil")		
+		WoWAssist:SetToggle(2, 0, "Dark Transformation")
+		WoWAssist:SetToggle(3, 1, "Necrotic Strike")
+		WoWAssist:SetToggle(4, 1, "Mind Freeze")
+		WoWAssist.GCD_Duration	= 1.0
+=======
+		WA:Print("Initializing Unholy")
+		WA:SetToggle(1, 0, "Death Coil")		
+		WA:SetToggle(2, 0, "Dark Transformation")
+		WA:SetToggle(3, 1, "Necrotic Strike")
+		WA:SetToggle(4, 1, "Mind Freeze")
+		WA.GCD_Duration	= 1.0
+>>>>>>> .r14
+		
+		WA:RegisterGCDSpell("Plague Strike")
+		WA:RegisterRangeSpell("Icy Touch")
+		NecroticStrike			= WoWAssist.spellColor12
+		WoWAssist.Spell11Icon	= WoWAssist:getIcon("Necrotic Strike")
+		
+		-- ==================== REGISTER SPELL COLORS ==============================
+		Outbreak				= WA:RegisterSpell(1, "Outbreak")
+		IcyTouch				= WA:RegisterSpell(2, "Icy Touch")
+		PlagueStrike			= WA:RegisterSpell(3, "Plague Strike")
+		ScourgeStrike			= WA:RegisterSpell(4, "Scourge Strike")
+		FesteringStrike			= WA:RegisterSpell(5, "Festering Strike")
+		DeathCoil				= WA:RegisterSpell(6, "Death Coil")
+		DarkTransformation		= WA:RegisterSpell(7, "Dark Transformation")
+		BloodTap				= WA:RegisterSpell(8, "Blood Tap")
+		Pestilence				= WA:RegisterSpell(9, "Pestilence")
+		BloodBoil				= WA:RegisterSpell(10, "Blood Boil")
+		HornOfWinter			= WA:RegisterSpell(11, "Horn of Winter")
+		NecroticStrike			= WA:RegisterSpell(12, "Mind Freeze")
+
+		-- ==================== REGISTER ROTATION ==============================
+		WA:setRotation(mod.rotation, "Unholy")
+	end
+end
+
+function mod.checkSpec()
+	PointsSpent = 0
+	_, _, _, _, PointsSpent, _, _, _ = GetTalentTabInfo(3)	-- Check that enough points are spent in the right tree
+	if(PointsSpent >= 30) then
+		enabled = true
+	else
+		enabled = false
+	end
+end

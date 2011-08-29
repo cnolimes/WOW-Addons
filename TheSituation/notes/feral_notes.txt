@@ -1,0 +1,831 @@
+# Ovale Optimized Script Leafkiller 4.2.1
+#       Bear code from tbot
+# Ovale source: http://wow.curse.com/downloads/wow-addons/details/ovale.aspx
+# Cat Rotation based on the Mew single target default script. Contributions to that have come from many ferals.
+# Revision History
+# 4.2.1 06/25/2011
+#   New cat rotation for 4.2. Support for 378 The Hungerer and 384 Matrix Restabilizer
+
+
+Define(BARKSKIN 22812)
+Define(BERSERK 50334) #cat+bear cd buff
+Define(DEMOROAR 99) #bear
+Define(ENRAGE 5229) #bear
+Define(FAERIEFERAL 16857) #bear+cat
+Define(FERALCHARGECAT 49376)
+Define(FEROCIOUSBITE 22568) #cat finish 35-70 mana
+Define(FRENZIEDREGENERATION 22842) #bear
+Define(LACERATE 33745) #bear bleed*3
+Define(MANGLECAT 33876) #cat bleed+debuff
+Define(MANGLEBEAR 33878) #bear bleed+debuff
+Define(MAUL 6807) #bear
+Define (PANTHER 90166) #tier 11 4 piece cat
+Define(PULVERIZE 80313) #bear after lacerate*3
+Define (PULVERIZEBUFF 80951) #buff has a different spellid then the ability
+Define(RAKE 1822) #cat bleed
+Define(RAVAGE 6785) #cat behind+(prowling or stampede)
+Define(RIP 1079) #cat bleed
+   SpellInfo(RIP resetcounter=ripshreds)
+Define(SAVAGEROAR 52610) #cat damage buff
+Define(SHRED 5221) #cat behind
+    SpellInfo(SHRED inccounter=ripshreds)
+Define(SURVIVALINSTINCTS 61336) #cat+bear surv cd
+Define(SWIPEBEAR 779) #bear aoe
+Define(SWIPECAT 62078) #cat aoe
+Define(THRASH 77758) #bear aoe bleed
+Define(TIGERSFURY 5217) #cat buff
+   
+#Trinket Procs
+Define(UNHEEDEDWARNING 59520)
+Define(HEEDLESSCARNAGE 92108) #Unheeded Warning Proc
+Define(ESSENCEOFCYCLONEH 65140) # heroic Esscence of Cyclone
+Define(TWISTEDH 92351)
+Define(MATRIXRESTABILIZERPROC 96978)
+Define(MATRIXRESTABILIZER 68994)
+Define(DEVOUR 96911)
+Define(THEHUNGERER 68927)
+
+#Glyphs
+Define(GLYPHOFSHRED 54815)
+Define(GLYPHOFRIP 54818)
+Define(GLYPHOFBERSERK 62969)
+
+#Buff
+Define(CLEARCASTING 16870)
+Define(STAMPEDE 81022)
+
+#Talents
+Define(BLOODINTHEWATERTALENT 8341)
+
+
+#Caster
+Define(FAERIEFIRE 770) #moonkin
+    SpellAddTargetDebuff(FAERIEFIRE FAERIEFIREDEBUFF=300)
+Define(FORCEOFNATURE 33831) #moonkin cd
+    SpellInfo(FORCEOFNATURE cd=180)
+Define(INNERVATE 29166)
+    SpellInfo(INNERVATE cd=180)
+    SpellAddBuff(INNERVATE INNERVATE=10)
+Define(INSECTSWARM 5570) #moonkin
+    SpellAddTargetDebuff(INSECTSWARM INSECTSWARM=12)
+Define(MOONFIRE 8921) #moonkin
+    SpellAddTargetDebuff(MOONFIRE MOONFIRE=12)
+Define(STARFALL 48505) #moonkin cd aoe
+    SpellInfo(STARFALL cd=90)
+    SpellAddBuff(STARFALL STARFALL=10)
+Define(STARFIRE 2912) #moonkin
+    SpellInfo(STARFIRE eclipse=20)
+Define(STARSURGE 78674) #moonkin 15 lunar+solar
+    SpellInfo(STARSURGE cd=15 starsurge=15)
+    SpellAddBuff(STARSURGE SHOOTINGSTARS=0)
+Define(SUNFIRE 93402)
+    SpellAddTargetDebuff(SUNFIRE SUNFIRE=12)
+Define(TYPHOON 50516)
+    SpellInfo(TYPHOON cd=20)
+Define(WRATH 5176) #moonkin
+    SpellInfo(WRATH eclipse=-13)
+
+	
+Define(ECLIPSELUNAR 48518) #Increased by wrath
+Define(ECLIPSESOLAR 48517) #Increased by starfire
+Define(SHOOTINGSTARS 93400)
+Define(ASTRALALIGNMENT 90164) #balance T11 4-pieces bonus
+
+
+AddCheckBox(demo SpellName(DEMOROAR) default mastery=2)
+AddCheckBox(berserk SpellName(BERSERK) default mastery=2)
+AddCheckBox(cooldownsL "Show Left Rotation Boxes" default mastery=2)
+AddCheckBox(cooldownsR "Show Right Cooldown Boxes" default mastery=2)
+AddCheckBox(lucioles SpellName(FAERIEFERAL) default mastery=2)
+AddCheckBox(mangle SpellName(MANGLECAT) default mastery=2)
+AddCheckBox(t11 "Detect t11 set bonus" default mastery=2)
+AddListItem(cd0 t0 "Top right - No Cooldown" default mastery=2)
+AddListItem(cd0 t12 "Top right - Rotation no TF/B" mastery=2)
+AddListItem(cd0 t1 "Top right - Mangle" mastery=2)
+AddListItem(cd0 t2 "Top right - Rake" mastery=2)
+AddListItem(cd0 t3 "Top right - Rip" mastery=2)
+AddListItem(cd0 t4 "Top right - Savage Roar" mastery=2)
+AddListItem(cd0 t5 "Top right - Tiger's Fury" mastery=2)
+AddListItem(cd0 t6 "Top right - Trinket 0" mastery=2)
+AddListItem(cd0 t7 "Top right - Trinket 1" mastery=2)
+AddListItem(cd0 t8 "Top right - Unheeded Warning" mastery=2)
+AddListItem(cd0 t9 "Top right - Heroic Essence of Cyclone" mastery=2)
+AddListItem(cd0 t10 "Top right - Matrix Restabilizer" mastery=2)
+AddListItem(cd0 t11 "Top right - The Hungerer" mastery=2)
+AddListItem(cd1 t0 "Bottom right - No Cooldown" default mastery=2)
+AddListItem(cd1 t1 "Bottom right - Mangle" mastery=2)
+AddListItem(cd1 t2 "Bottom right - Rake" mastery=2)
+AddListItem(cd1 t3 "Bottom right - Rip" mastery=2)
+AddListItem(cd1 t4 "Bottom right - Savage Roar" mastery=2)
+AddListItem(cd1 t5 "Bottom right - Tiger's Fury" mastery=2)
+AddListItem(cd1 t6 "Bottom right - Trinket 0" mastery=2)
+AddListItem(cd1 t7 "Bottom right - Trinket 1" mastery=2)
+AddListItem(cd1 t8 "Bottom right - Unheeded Warning" mastery=2)
+AddListItem(cd1 t9 "Bottom right - Heroic Essence of Cyclone" mastery=2)
+AddListItem(cd1 t10 "Bottom right - Matrix Restabilizer" mastery=2)
+AddListItem(cd1 t11 "Bottom right - The Hungerer" mastery=2)
+AddListItem(cd2 t0 "Top far right - No Cooldown" default mastery=2)
+AddListItem(cd2 t1 "Top far right - Mangle" mastery=2)
+AddListItem(cd2 t2 "Top far right - Rake" mastery=2)
+AddListItem(cd2 t3 "Top far right - Rip" mastery=2)
+AddListItem(cd2 t4 "Top far right - Savage Roar" mastery=2)
+AddListItem(cd2 t5 "Top far right - Tiger's Fury" mastery=2)
+AddListItem(cd2 t6 "Top far right - Trinket 0" mastery=2)
+AddListItem(cd2 t7 "Top far right - Trinket 1" mastery=2)
+AddListItem(cd2 t8 "Top far right - Unheeded Warning" mastery=2)
+AddListItem(cd2 t9 "Top far right - Heroic Essence of Cyclone" mastery=2)
+AddListItem(cd2 t10 "Top far right - Matrix Restabilizer" mastery=2)
+AddListItem(cd2 t11 "Top far right - The Hungerer" mastery=2)
+AddListItem(cd3 t0 "Bottom far right - No Cooldown" default mastery=2)
+AddListItem(cd3 t1 "Bottom far right - Mangle" mastery=2)
+AddListItem(cd3 t2 "Bottom far right - Rake" mastery=2)
+AddListItem(cd3 t3 "Bottom far right - Rip" mastery=2)
+AddListItem(cd3 t4 "Bottom far right - Savage Roar" mastery=2)
+AddListItem(cd3 t5 "Bottom far right - Tiger's Fury" mastery=2)
+AddListItem(cd3 t6 "Bottom far right - Trinket 0" mastery=2)
+AddListItem(cd3 t7 "Bottom far right - Trinket 1" mastery=2)
+AddListItem(cd3 t8 "Bottom far right - Unheeded Warning" mastery=2)
+AddListItem(cd3 t9 "Bottom far right - Heroic Essence of Cyclone" mastery=2)
+AddListItem(cd3 t10 "Bottom far right - Matrix Restabilizer" mastery=2)
+AddListItem(cd3 t11 "Bottom far right - The Hungerer" mastery=2)
+
+ScoreSpells(FAERIEFERAL DEMOROAR MANGLEBEAR LACERATE SAVAGEROAR RIP
+        MANGLECAT RAKE SHRED FEROCIOUSBITE PULVERIZE MAUL INSECTSWARM MOONFIRE
+        WRATH STARFIRE STARSURGE SUNFIRE)
+
+AddIcon help=main mastery=1
+{
+    #/faerie_fire,if=debuff.faerie_fire.stack<3&!(debuff.sunder_armor.up|debuff.expose_armor.up)
+    if CheckBoxOn(lucioles) and TargetDebuffExpires(FAERIEFIREDEBUFF 3 mine=1 stacks=3) and TargetDebuffExpires(lowerarmor 2 mine=0) and TargetDeadIn(more 15)
+        Spell(FAERIEFIRE nored=1)
+
+    if Speed(more 0)
+    {
+        #/typhoon,moving=1
+        Spell(TYPHOON)
+        if BuffPresent(SHOOTINGSTARS) Spell(STARSURGE)
+        if TargetDebuffExpires(INSECTSWARM 4 mine=1) and TargetDeadIn(more 6)
+            Spell(INSECTSWARM)
+        if BuffPresent(ECLIPSESOLAR)
+            Spell(SUNFIRE)
+        Spell(MOONFIRE)
+    }
+    
+    #/insect_swarm,if=ticks_remain<2|(dot.insect_swarm.remains<4&buff.solar_eclipse.up&eclipse<15)";
+    if TargetDebuffExpires(INSECTSWARM 2 mine=1) or {TargetDebuffExpires(INSECTSWARM 4 mine=1) and 
+            BuffPresent(ECLIPSESOLAR) and Eclipse(less 15)}
+            Spell(INSECTSWARM nored=1)  
+
+    if BuffPresent(ASTRALALIGNMENT)
+    {
+        #/starsurge,if=buff.t11_4pc_caster.up
+        Spell(STARSURGE)
+        #/starfire,if=buff.t11_4pc_caster.up&buff.lunar_eclipse.up
+        if BuffPresent(ECLIPSELUNAR) Spell(STARFIRE)
+        #/wrath,if=buff.t11_4pc_caster.up
+        Spell(WRATH)
+    }
+    
+    #action_list_str += "/wild_mushroom_detonate,moving=1,if=buff.wild_mushroom.stack=3";
+    #action_list_str += "/wild_mushroom_detonate,moving=0,if=buff.wild_mushroom.stack>0&buff.solar_eclipse.up";
+
+    if TargetDeadIn(more 6)    and BuffExpires(ASTRALALIGNMENT)
+    {
+        #/sunfire,if=(!tickingicks_remain<2|(dot.sunfire.remains<4&buff.solar_eclipse.up&eclipse<15))&!dot.moonfire.remains>0";
+        if BuffPresent(ECLIPSESOLAR) and {TargetDebuffExpires(SUNFIRE 2 mine=1) or {TargetDebuffExpires(SUNFIRE 4 mine=1) and Eclipse(less 15)}}
+                and TargetDebuffExpires(MOONFIRE 0 mine=1)
+            Spell(SUNFIRE nored=1)
+        
+        #/moonfire,if=(!tickingicks_remain<2|(dot.moonfire.remains<4&buff.lunar_eclipse.up&eclipse>-20))
+        if BuffExpires(ECLIPSELUNAR 0) and {TargetDebuffExpires(MOONFIRE 2 mine=1) or {TargetDebuffExpires(MOONFIRE 4 mine=1) and Eclipse(more -20)}}
+                and TargetDebuffExpires(SUNFIRE 0 mine=1)
+            Spell(MOONFIRE nored=1)
+    }
+        
+    #/starsurge,if=!((eclipse<=-87&eclipse_dir=-1)|(eclipse>=80&eclipse_dir=1))
+    unless {Eclipse(less -88) and BuffExpires(ECLIPSELUNAR)} or {Eclipse(more 79) and BuffExpires(ECLIPSESOLAR)}
+        Spell(STARSURGE)
+        
+    #/innervate,if=mana_pct<50
+    if ManaPercent(less 50) Spell(INNERVATE)
+    
+    #The following lines should not be useful for Ovale
+    #/starfire,if=eclipse_dir=1&eclipse<80
+    #/starfire,prev=wrath,if=eclipse_dir=-1&eclipse<-87
+    #/wrath,if=eclipse_dir=-1&eclipse>=-87";
+    #/wrath,prev=starfire,if=eclipse_dir=1&eclipse>=80";
+
+    #/starfire,if=eclipse_dir=1
+    if BuffPresent(ECLIPSELUNAR) or Eclipse(equal -100) Spell(STARFIRE)
+    #/wrath,if=eclipse_dir=-1
+    if BuffPresent(ECLIPSESOLAR) or Eclipse(equal 100) Spell(WRATH)
+    if Eclipse(more 0) Spell(STARFIRE)
+    if Eclipse(less 0) Spell(WRATH)
+    #/starfire
+    Spell(STARFIRE)
+}
+
+AddIcon help=cd mastery=1
+{
+    #/starfall,if=buff.lunar_eclipse.up&buff.t11_4pc_caster.down
+    if BuffPresent(ECLIPSELUNAR) and BuffExpires(ASTRALALIGNMENT) Spell(STARFALL)
+    #/treants,time>=5
+    if TimeInCombat(more 5) Spell(FORCEOFNATURE)
+    Item(Trinket0Slot usable=1)
+    Item(Trinket1Slot usable=1)
+}
+
+# Main rotation
+AddIcon help=main mastery=2 {
+    if Stance(1) {  #bear
+        if CheckBoxOn(lucioles) and CheckBoxOff(aoe) and TargetDebuffExpires(lowerarmor 2 stacks=3) {
+            Spell(FAERIEFERAL)
+        }
+       
+        if 1s before Spell(MANGLEBEAR) {
+            Spell(MANGLEBEAR priority=4)
+        }
+       
+        if CheckBoxOn(demo) and TargetDebuffExpires(lowerphysicaldamage 4) {
+            Spell(DEMOROAR)
+        }
+
+        unless TargetDebuffPresent(LACERATE stacks=1 mine=1) {
+            Spell(LACERATE)
+        }
+       
+        if 0s before Spell(THRASH) {
+            Spell(THRASH)
+        }
+
+        if TargetDebuffPresent(LACERATE stacks=3) and BuffExpires(PULVERIZEBUFF 1) {
+            Spell(PULVERIZE)
+        }
+       
+        unless TargetDebuffPresent(LACERATE stacks=3) {
+            Spell(LACERATE)
+        }
+        if 0s before Spell(FAERIEFERAL) {
+            Spell(FAERIEFERAL)
+        }
+        Spell(LACERATE)
+    }
+
+    if Stance(3) { # cat
+       # TF + Berserk logic - only show Berserk if both are off of cooldown - everyone should macro TF to their Berserk key
+        unless BuffPresent(BERSERK) or BuffPresent(CLEARCASTING) {
+            if Mana(less 36) and {0s before Spell(TIGERSFURY)} {
+               if CheckBoxOn(berserk) Spell(BERSERK)
+               Spell(TIGERSFURY)
+            }
+        }
+       
+        #In case Berserk was not cast with TF
+        if BuffPresent(TIGERSFURY) and CheckBoxOn(berserk) Spell(BERSERK)
+       
+        # Clip Berserk at end of fight
+        if CheckBoxOn(berserk) {
+           if Glyph(GLYPHOFBERSERK) {       
+              if TargetDeadIn(less 25) {unless 6s before Spell(TIGERSFURY) Spell(BERSERK)}
+           }
+           unless Glyph(GLYPHOFBERSERK) {    # shortbus alert - everyone should have GoB now
+              if TargetDeadIn(less 15) {unless 6s before Spell(TIGERSFURY) Spell(BERSERK)}
+           }
+        }
+       
+        unless TargetInRange(MANGLECAT) {
+            Texture(ability_druid_catformattack)
+        }
+
+        #refresh PANTHER (T11)
+        if ArmorSetParts(T11 more 3) and BuffPresent(PANTHER) and CheckBoxOn(t11) {
+            if BuffExpires(PANTHER 4) Spell(MANGLECAT)
+        }
+   
+        if CheckBoxOn(lucioles) and TargetDebuffExpires(lowerarmor 1) and TargetDeadIn(more 15) {
+            Spell(FAERIEFERAL)
+        }
+           
+        if TargetDebuffExpires(bleed 2) and CheckBoxOn(mangle) {
+            Spell(MANGLECAT)
+        }
+       
+        # Ravage Code - this is the catch all
+        if BuffPresent(STAMPEDE) and BuffExpires(STAMPEDE 3) {
+            Spell(RAVAGE)
+        }
+   
+        # Two conditions for FB during Blood of the Water phase
+        # Add in FB code for end of fight - only do this is Rip buff is present
+        if TalentPoints(BLOODINTHEWATERTALENT more 1) and TargetLifePercent(less 25) and TargetDebuffPresent(RIP mine=1) {
+           if ComboPoints(more 4)  Spell(FEROCIOUSBITE)
+           if ComboPoints(more 0) and TargetDebuffExpires(RIP 2.1 mine=1) Spell(FEROCIOUSBITE)       
+        }
+       
+        #Extends Rip with shred if glyph
+        unless TalentPoints(BLOODINTHEWATERTALENT more 1) and TargetLifePercent(less 25) {
+         if Glyph(GLYPHOFSHRED) and TargetDebuffPresent(RIP mine=1) and TargetDebuffExpires(RIP 4 mine=1) and Counter(ripshreds less 3) {
+               Spell(SHRED)
+           }
+        }
+       
+        # Time to recast Rip - clip if possible - try to hold off for TF
+        if ComboPoints(more 4) and TargetDeadIn(more 6) and TargetDebuffExpires(RIP 2 mine=1) and
+            {BuffPresent(BERSERK) or {target.debuffExpires(RIP mine=1)<spell(TIGERSFURY)}}
+         Spell(RIP)
+
+      # FBs during Berserk
+      if BuffPresent(BERSERK) {
+         if ComboPoints(more 4) and Mana(more 12) and TargetDebuffPresent(RIP 5 mine=1) and BuffPresent(SAVAGEROAR 3) {
+            Spell(FEROCIOUSBITE)
+         }
+      }
+
+        # clip Rake early if TF is up and rake ramining is less than 9 seconds
+        if TargetDebuffExpires(RAKE 8.9 mine=1) and TargetDeadIn(more 8) and BuffPresent(TIGERSFURY) {
+          Spell(RAKE)
+        }
+       
+        # intentionally clip Rake to maximize uptime
+        if TargetDeadIn(more 8.4) and TargetDebuffExpires(RAKE 2.9 mine=1) and {BuffPresent(BERSERK) or Mana(more 70) or
+            {{spell(TIGERSFURY)+0.8}>target.debuffExpires(RAKE mine=1)}}
+         Spell(RAKE)
+
+      if BuffPresent(CLEARCASTING) Spell(SHRED)
+      
+        # Savage Roar code - both when it is down and the desync code for Rip and Roar
+        if ComboPoints(more 0) and BuffExpires(SAVAGEROAR 1) {
+            Spell(SAVAGEROAR)
+        }
+
+        # Burn combo points on FB if the target is about to die - on a boss fight this is redundant with BotW phase
+        if ComboPoints(more 4) and TargetDeadIn(less 7) {
+            Spell(FEROCIOUSBITE)
+        }
+       
+      if BuffExpires(BERSERK 0) or Mana(less 25) {
+         if ComboPoints(more 4) and TargetDebuffPresent(RIP 14 mine=1) and BuffPresent(SAVAGEROAR 10) {
+            Spell(FEROCIOUSBITE)
+         }
+      }
+         
+        if BuffPresent(STAMPEDE) and BuffPresent(TIGERSFURY) {
+            unless BuffPresent(CLEARCASTING) Spell(RAVAGE)
+        }
+       
+        #stack up PANTHER (T11)
+        if ArmorSetParts(T11 more 3) and CheckBoxOn(t11) {
+            unless BuffPresent(PANTHER stacks=3) Spell(MANGLECAT)
+        }
+       
+        # Conditions for Shreding now that everything else is taken into account
+       
+        # Shred aggressively for Berserk and TF
+        if BuffPresent(BERSERK) or BuffPresent(TIGERSFURY) Spell(SHRED)
+       
+        # Shred for combo points for Rip or SR
+        if ComboPoints(less 5) and TargetDebuffExpires(RIP 3 mine=1) Spell(SHRED)
+        if ComboPoints(less 1) and BuffExpires(SAVAGEROAR 2) Spell(SHRED)
+       
+        # Shred to burn off energy so we can TF without capping
+        if { 3s before Spell(TIGERSFURY) } Spell(SHRED)
+       
+        # Shred is the mob will die within one Rake
+        if TargetDeadIn(less 8.5) Spell(SHRED)
+       
+        # Fallback Shred to prevent energy capping
+        if 1.2s before Mana(more 99) Spell(SHRED)
+    }
+}
+
+
+
+# Main Rotation (no filler shreds, otherwise copy of other rotation)
+AddIcon help=main mastery=2
+{
+   if Stance(1) {
+        if Mana(more 70) {
+            Spell(MAUL)
+        }
+    }
+
+    if Stance(3) { # cat
+
+        #refresh PANTHER (T11)
+        if ArmorSetParts(T11 more 3) and BuffPresent(PANTHER) and CheckBoxOn(t11) {
+            if BuffExpires(PANTHER 4) Spell(MANGLECAT)
+        }
+   
+        if CheckBoxOn(lucioles) and TargetDebuffExpires(lowerarmor 1) and TargetDeadIn(more 15) {
+            Spell(FAERIEFERAL)
+        }
+           
+        if TargetDebuffExpires(bleed 2) and CheckBoxOn(mangle) {
+            Spell(MANGLECAT)
+        }
+       
+        # Ravage Code - this is the catch all
+        if BuffPresent(STAMPEDE) and BuffExpires(STAMPEDE 3) {
+            Spell(RAVAGE)
+        }
+   
+        # Two conditions for FB during Blood of the Water phase
+        # Add in FB code for end of fight - only do this is Rip buff is present
+        if TalentPoints(BLOODINTHEWATERTALENT more 1) and TargetLifePercent(less 25) and TargetDebuffPresent(RIP mine=1) {
+           if ComboPoints(more 4)  Spell(FEROCIOUSBITE)
+           if ComboPoints(more 0) and TargetDebuffExpires(RIP 2.1 mine=1) Spell(FEROCIOUSBITE)       
+        }
+       
+        #Extends Rip with shred if glyph
+        unless TalentPoints(BLOODINTHEWATERTALENT more 1) and TargetLifePercent(less 25) {
+         if Glyph(GLYPHOFSHRED) and TargetDebuffPresent(RIP mine=1) and TargetDebuffExpires(RIP 4 mine=1) and Counter(ripshreds less 3) {
+               Spell(SHRED)
+           }
+        }
+       
+        # Time to recast Rip - clip if possible - try to hold off for TF
+        if ComboPoints(more 4) and TargetDeadIn(more 6) and TargetDebuffExpires(RIP 2 mine=1) and
+            {BuffPresent(BERSERK) or {target.debuffExpires(RIP mine=1)<spell(TIGERSFURY)}}
+         Spell(RIP)
+
+      # FBs during Berserk
+      if BuffPresent(BERSERK) {
+         if ComboPoints(more 4) and Mana(more 12) and TargetDebuffPresent(RIP 5 mine=1) and BuffPresent(SAVAGEROAR 3) {
+            Spell(FEROCIOUSBITE)
+         }
+      }
+
+        # clip Rake early if TF is up and rake ramining is less than 9 seconds
+        if TargetDebuffExpires(RAKE 8.9 mine=1) and TargetDeadIn(more 8) and BuffPresent(TIGERSFURY) {
+          Spell(RAKE)
+        }
+       
+        # intentionally clip Rake to maximize uptime
+        if TargetDeadIn(more 8.4) and TargetDebuffExpires(RAKE 2.9 mine=1) and {BuffPresent(BERSERK) or Mana(more 70) or
+            {{spell(TIGERSFURY)+0.8}>target.debuffExpires(RAKE mine=1)}}
+         Spell(RAKE)
+      
+        # Savage Roar code - both when it is down and the desync code for Rip and Roar
+        if ComboPoints(more 0) and BuffExpires(SAVAGEROAR 1) {
+            Spell(SAVAGEROAR)
+        }
+       
+      if BuffExpires(BERSERK 0) or Mana(less 25) {
+         if ComboPoints(more 4) and TargetDebuffPresent(RIP 14 mine=1) and BuffPresent(SAVAGEROAR 10) {
+            Spell(FEROCIOUSBITE)
+         }
+      }
+    }
+}
+AddIcon help=cd size=small mastery=2 { # TF Icon or Barkskin for Bear
+    if CheckBoxOn(cooldownsL) {
+        if Stance(3) {
+            # off of cooldown and in range
+            if TargetInRange(FERALCHARGECAT)
+                Spell(FERALCHARGECAT)
+            # FC Runaway code
+            unless BuffPresent(TIGERSFURY) or BuffPresent(BERSERK) or Mana(more 69) or BuffPresent(CLEARCASTING) {
+                unless ArmorSetParts(T11 more 3) and BuffExpires(PANTHER 4) {
+                    if 2s before Spell(FERALCHARGECAT) {
+                        unless TargetDebuffExpires(RAKE 5.9 mine=1) or TargetInRange(FERALCHARGECAT)
+                            Texture(Ability_druid_dash)
+                    }
+                }   
+            }
+            # default - shows cooldown
+            if 0s before Spell(FERALCHARGECAT)
+                Texture(Spell_nature_timestop)  # default - FC is off of cooldown other conditons not met
+        }
+        if Stance(1) {Spell(BARKSKIN)}
+    }
+}
+AddIcon help=cd size=small mastery=2 { # Berserk Icon
+    if CheckBoxOn(cooldownsL) {
+        if Stance(1) {
+            Spell(BERSERK)
+        }
+        if Stance(3) {
+         if BuffPresent(TIGERSFURY) Spell(BERSERK)
+         if TargetDeadIn(less 25) {unless 6s before Spell(TIGERSFURY) Spell(BERSERK)}
+            if 0s before Spell(BERSERK) Texture(Ability_mount_polarbear_white)
+        }
+    }
+}
+AddIcon help=cd size=small mastery=2 { # Rake/Manglebear Icon
+    if CheckBoxOn(cooldownsR) {
+        if Stance(3) {
+            if List(cd0 t1) {
+                if ArmorSetParts(T11 more 3) {
+                   if BuffExpires(PANTHER 0) Spell(MANGLECAT)
+               }
+               unless ArmorSetParts(T11 more 3) {
+                   if TargetDebuffExpires(bleed 0) Spell(MANGLECAT)
+               }
+            }
+            if List(cd0 t2) if TargetDebuffExpires(RAKE 0 mine=1) Spell(RAKE)
+            if List(cd0 t3) if TargetDebuffExpires(RIP 0 mine=1) Spell(RIP)
+            if List(cd0 t4) if BuffExpires(SAVAGEROAR 0) Spell(SAVAGEROAR)
+            if List(cd0 t5) Spell(TIGERSFURY)
+            if List(cd0 t6) Item(Trinket0Slot usable=1)
+            if List(cd0 t7) Item(Trinket1Slot usable=1)
+            if List(cd0 t8) {
+               unless BuffPresent(HEEDLESSCARNAGE) {
+                  if 0s before BuffGain(HEEDLESSCARNAGE 50) Item(UNHEEDEDWARNING)
+               }
+               if BuffPresent(HEEDLESSCARNAGE) {
+                   if 0s before BuffExpires(HEEDLESSCARNAGE 0) Texture(Spell_deathknight_butcher)
+               }
+           }
+            if List(cd0 t9) {
+               unless BuffPresent(TWISTEDH) {
+                  if 0s before BuffGain(TWISTEDH 50) Item(ESSENCEOFCYCLONEH)
+               }
+               if BuffPresent(TWISTEDH) {
+                   if 0s before BuffExpires(TWISTEDH 0) Texture(Ability_rogue_dirtydeeds)
+               }
+           }
+            if List(cd0 t10) {
+               unless BuffPresent(MATRIXRESTABILIZERPROC) {
+                  if 0s before BuffGain(MATRIXRESTABILIZERPROC 105) Item(MATRIXRESTABILIZER)
+               }
+               if BuffPresent(MATRIXRESTABILIZERPROC) {
+                   if 0s before BuffExpires(MATRIXRESTABILIZERPROC 0) Texture(inv_gizmo_electrifiedether)
+               }
+           }
+            if List(cd0 t11) {
+               unless BuffPresent(DEVOUR) {
+                  if 0s before BuffGain(DEVOUR 60) Item(THEHUNGERER)
+               }
+               if BuffPresent(DEVOUR) {
+                   if 0s before BuffExpires(DEVOUR 0) Texture(spell_deathknight_gnaw_ghoul)
+               }
+           }
+           if List(cd0 t12) {  # rotation with no TF/B
+              unless TargetInRange(MANGLECAT) {
+                  Texture(ability_druid_catformattack)
+              }
+
+              #refresh PANTHER (T11)
+              if ArmorSetParts(T11 more 3) and BuffPresent(PANTHER) and CheckBoxOn(t11) {
+                  if BuffExpires(PANTHER 4) Spell(MANGLECAT)
+              }
+   
+              if CheckBoxOn(lucioles) and TargetDebuffExpires(lowerarmor 1) and TargetDeadIn(more 15) {
+                  Spell(FAERIEFERAL)
+              }
+           
+              if TargetDebuffExpires(bleed 2) and CheckBoxOn(mangle) {
+                  Spell(MANGLECAT)
+              }
+       
+              # Ravage Code - this is the catch all
+              if BuffPresent(STAMPEDE) and BuffExpires(STAMPEDE 3) {
+                  Spell(RAVAGE)
+              }
+   
+              # Two conditions for FB during Blood of the Water phase
+              # Add in FB code for end of fight - only do this is Rip buff is present
+              if TalentPoints(BLOODINTHEWATERTALENT more 1) and TargetLifePercent(less 25) and TargetDebuffPresent(RIP mine=1) {
+                 if ComboPoints(more 4)  Spell(FEROCIOUSBITE)
+                 if ComboPoints(more 0) and TargetDebuffExpires(RIP 2.1 mine=1) Spell(FEROCIOUSBITE)       
+              }
+          
+              #Extends Rip with shred if glyph
+              unless TalentPoints(BLOODINTHEWATERTALENT more 1) and TargetLifePercent(less 25) {
+               if Glyph(GLYPHOFSHRED) and TargetDebuffPresent(RIP mine=1) and TargetDebuffExpires(RIP 4 mine=1) and Counter(ripshreds less 3) {
+                     Spell(SHRED)
+                 }
+              }
+       
+              # Time to recast Rip - clip if possible - try to hold off for TF
+              if ComboPoints(more 4) and TargetDeadIn(more 6) and TargetDebuffExpires(RIP 2 mine=1) and
+                  {BuffPresent(BERSERK) or {target.debuffExpires(RIP mine=1)<spell(TIGERSFURY)}}
+               Spell(RIP)
+      
+            # FBs during Berserk
+            if BuffPresent(BERSERK) {
+               if ComboPoints(more 4) and Mana(more 12) and TargetDebuffPresent(RIP 5 mine=1) and BuffPresent(SAVAGEROAR 3) {
+                  Spell(FEROCIOUSBITE)
+               }
+            }
+
+              # clip Rake early if TF is up and rake ramining is less than 9 seconds
+              if TargetDebuffExpires(RAKE 8.9 mine=1) and TargetDeadIn(more 8) and BuffPresent(TIGERSFURY) {
+                Spell(RAKE)
+              }
+       
+              # intentionally clip Rake to maximize uptime
+              if TargetDeadIn(more 8.4) and TargetDebuffExpires(RAKE 2.9 mine=1) and {BuffPresent(BERSERK) or Mana(more 70) or
+                  {{spell(TIGERSFURY)+0.8}>target.debuffExpires(RAKE mine=1)}}
+               Spell(RAKE)
+
+            if BuffPresent(CLEARCASTING) Spell(SHRED)
+         
+              # Savage Roar code - both when it is down and the desync code for Rip and Roar
+              if ComboPoints(more 0) and BuffExpires(SAVAGEROAR 1) {
+                  Spell(SAVAGEROAR)
+              }
+
+              # Burn combo points on FB if the target is about to die - on a boss fight this is redundant with BotW phase
+              if ComboPoints(more 4) and TargetDeadIn(less 7) {
+                  Spell(FEROCIOUSBITE)
+              }
+       
+            if BuffExpires(BERSERK 0) or Mana(less 25) {
+               if ComboPoints(more 4) and TargetDebuffPresent(RIP 14 mine=1) and BuffPresent(SAVAGEROAR 10) {
+                  Spell(FEROCIOUSBITE)
+               }
+            }
+         
+              if BuffPresent(STAMPEDE) and BuffPresent(TIGERSFURY) {
+                  unless BuffPresent(CLEARCASTING) Spell(RAVAGE)
+              }
+       
+              #stack up PANTHER (T11)
+              if ArmorSetParts(T11 more 3) and CheckBoxOn(t11) {
+                  unless BuffPresent(PANTHER stacks=3) Spell(MANGLECAT)
+              }
+       
+              # Conditions for Shreding now that everything else is taken into account
+       
+              # Shred aggressively for Berserk and TF
+              if BuffPresent(BERSERK) or BuffPresent(TIGERSFURY) Spell(SHRED)
+       
+              # Shred for combo points for Rip or SR
+              if ComboPoints(less 5) and TargetDebuffExpires(RIP 3 mine=1) Spell(SHRED)
+              if ComboPoints(less 1) and BuffExpires(SAVAGEROAR 2) Spell(SHRED)
+       
+              # Shred to burn off energy so we can TF without capping
+              if { 3s before Spell(TIGERSFURY) } Spell(SHRED)
+       
+              # Shred is the mob will die within one Rake
+              if TargetDeadIn(less 8.5) Spell(SHRED)
+       
+              # Fallback Shred to prevent energy capping
+              if 1.2s before Mana(more 99) Spell(SHRED)
+           }
+        }
+        if Stance(1) {
+           Spell(SURVIVALINSTINCTS)
+        }
+    }
+}
+AddIcon help=cd size=small mastery=2 { # Rip/Swipebear Icon
+    if CheckBoxOn(cooldownsR) {
+        if Stance(3) {
+            if List(cd1 t1) {
+                if ArmorSetParts(T11 more 3) {
+                   if BuffExpires(PANTHER 0) Spell(MANGLECAT)
+               }
+               unless ArmorSetParts(T11 more 3) {
+                   if TargetDebuffExpires(bleed 0) Spell(MANGLECAT)
+               }
+            }
+            if List(cd1 t2) if TargetDebuffExpires(RAKE 0 mine=1) Spell(RAKE)
+            if List(cd1 t3) if TargetDebuffExpires(RIP 0 mine=1) Spell(RIP)
+            if List(cd1 t4) if BuffExpires(SAVAGEROAR 0) Spell(SAVAGEROAR)
+            if List(cd1 t5) Spell(TIGERSFURY)
+            if List(cd1 t6) Item(Trinket0Slot usable=1)
+            if List(cd1 t7) Item(Trinket1Slot usable=1)
+            if List(cd1 t8) {
+               unless BuffPresent(HEEDLESSCARNAGE) {
+                  if 0s before BuffGain(HEEDLESSCARNAGE 50) Item(UNHEEDEDWARNING)
+               }
+               if BuffPresent(HEEDLESSCARNAGE) {
+                   if 0s before BuffExpires(HEEDLESSCARNAGE 0) Texture(Spell_deathknight_butcher)
+               }
+            }
+            if List(cd1 t9) {
+               unless BuffPresent(TWISTEDH) {
+                  if 0s before BuffGain(TWISTEDH 50) Item(ESSENCEOFCYCLONEH)
+               }
+               if BuffPresent(TWISTEDH) {
+                   if 0s before BuffExpires(TWISTEDH 0) Texture(Ability_rogue_dirtydeeds)
+               }
+           }
+            if List(cd1 t10) {
+              unless BuffPresent(MATRIXRESTABILIZERPROC) {
+                  if 0s before BuffGain(MATRIXRESTABILIZERPROC 105) Item(MATRIXRESTABILIZER)
+               }
+               if BuffPresent(MATRIXRESTABILIZERPROC) {
+                   if 0s before BuffExpires(MATRIXRESTABILIZERPROC 0) Texture(inv_gizmo_electrifiedether)
+               }
+           }
+            if List(cd1 t11) {
+               unless BuffPresent(DEVOUR) {
+                  if 0s before BuffGain(DEVOUR 60) Item(THEHUNGERER)
+               }
+               if BuffPresent(DEVOUR) {
+                   if 0s before BuffExpires(DEVOUR 0) Texture(spell_deathknight_gnaw_ghoul)
+               }
+            }
+        }
+        if Stance(1) {
+            Spell(FRENZIEDREGENERATION)
+        }
+    }
+}
+AddIcon help=cd size=small mastery=2 { # Rake/Manglebear Icon
+    if CheckBoxOn(cooldownsR) {
+        if Stance(3) {
+            if List(cd2 t1) {
+                if ArmorSetParts(T11 more 3) {
+                   if BuffExpires(PANTHER 0) Spell(MANGLECAT)
+               }
+               unless ArmorSetParts(T11 more 3) {
+                   if TargetDebuffExpires(bleed 0) Spell(MANGLECAT)
+               }
+            }
+            if List(cd2 t2) if TargetDebuffExpires(RAKE 0 mine=1) Spell(RAKE)
+            if List(cd2 t3) if TargetDebuffExpires(RIP 0 mine=1) Spell(RIP)
+            if List(cd2 t4) if BuffExpires(SAVAGEROAR 0) Spell(SAVAGEROAR)
+            if List(cd2 t5) Spell(TIGERSFURY)
+            if List(cd2 t6) Item(Trinket0Slot usable=1)
+            if List(cd2 t7) Item(Trinket1Slot usable=1)
+            if List(cd2 t8) {
+               unless BuffPresent(HEEDLESSCARNAGE) {
+                  if 0s before BuffGain(HEEDLESSCARNAGE 50) Item(UNHEEDEDWARNING)
+               }
+               if BuffPresent(HEEDLESSCARNAGE) {
+                   if 0s before BuffExpires(HEEDLESSCARNAGE 0) Texture(Spell_deathknight_butcher)
+               }
+           }
+            if List(cd2 t9) {
+               unless BuffPresent(TWISTEDH) {
+                  if 0s before BuffGain(TWISTEDH 50) Item(ESSENCEOFCYCLONEH)
+               }
+               if BuffPresent(TWISTEDH) {
+                   if 0s before BuffExpires(TWISTEDH 0) Texture(Ability_rogue_dirtydeeds)
+               }
+           }
+            if List(cd2 t10) {
+              unless BuffPresent(MATRIXRESTABILIZERPROC) {
+                  if 0s before BuffGain(MATRIXRESTABILIZERPROC 105) Item(MATRIXRESTABILIZER)
+               }
+               if BuffPresent(MATRIXRESTABILIZERPROC) {
+                   if 0s before BuffExpires(MATRIXRESTABILIZERPROC  0) Texture(inv_gizmo_electrifiedether)
+               }
+           }
+            if List(cd2 t11) {
+               unless BuffPresent(DEVOUR) {
+                  if 0s before BuffGain(DEVOUR 60) Item(THEHUNGERER)
+               }
+               if BuffPresent(DEVOUR) {
+                   if 0s before BuffExpires(DEVOUR 0) Texture(spell_deathknight_gnaw_ghoul)
+               }
+            }
+        }
+    }
+}
+AddIcon help=cd size=small mastery=2 { # Rip/Swipebear Icon
+    if CheckBoxOn(cooldownsR) {
+        if Stance(3) {
+            if List(cd3 t1) {
+                if ArmorSetParts(T11 more 3) {
+                   if BuffExpires(PANTHER 0) Spell(MANGLECAT)
+               }
+               unless ArmorSetParts(T11 more 3) {
+                   if TargetDebuffExpires(bleed 0) Spell(MANGLECAT)
+               }
+            }
+            if List(cd3 t2) if TargetDebuffExpires(RAKE 0 mine=1) Spell(RAKE)
+            if List(cd3 t3) if TargetDebuffExpires(RIP 0 mine=1) Spell(RIP)
+            if List(cd3 t4) if BuffExpires(SAVAGEROAR 0) Spell(SAVAGEROAR)
+            if List(cd3 t5) Spell(TIGERSFURY)
+            if List(cd3 t6) Item(Trinket0Slot usable=1)
+            if List(cd3 t7) Item(Trinket1Slot usable=1)
+            if List(cd3 t8) {
+               unless BuffPresent(HEEDLESSCARNAGE) {
+                  if 0s before BuffGain(HEEDLESSCARNAGE 50) Item(UNHEEDEDWARNING)
+               }
+               if BuffPresent(HEEDLESSCARNAGE) {
+                   if 0s before BuffExpires(HEEDLESSCARNAGE 0) Texture(Spell_deathknight_butcher)
+               }
+            }
+            if List(cd3 t9) {
+               unless BuffPresent(TWISTEDH) {
+                  if 0s before BuffGain(TWISTEDH 50) Item(ESSENCEOFCYCLONEH)
+               }
+               if BuffPresent(TWISTEDH) {
+                   if 0s before BuffExpires(TWISTEDH 0) Texture(Ability_rogue_dirtydeeds)
+               }
+           }
+            if List(cd3 t10) {
+              unless BuffPresent(MATRIXRESTABILIZERPROC) {
+                  if 0s before BuffGain(MATRIXRESTABILIZERPROC 105) Item(MATRIXRESTABILIZER)
+               }
+               if BuffPresent(MATRIXRESTABILIZERPROC ) {
+                   if 0s before BuffExpires(MATRIXRESTABILIZERPROC  0) Texture(inv_gizmo_electrifiedether)
+               }
+           }
+            if List(cd3 t11) {
+               unless BuffPresent(DEVOUR) {
+                  if 0s before BuffGain((DEVOUR 60) Item(THEHUNGERER)
+               }
+               if BuffPresent(DEVOUR) {
+                   if 0s before BuffExpires(DEVOUR 0) Texture(spell_deathknight_gnaw_ghoul)
+               }
+            }
+        }
+    }
+}

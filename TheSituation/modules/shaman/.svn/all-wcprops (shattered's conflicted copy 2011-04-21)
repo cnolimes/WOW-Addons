@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/11/trunk/addons/WoWAssist/modules/shaman
+END
+global.lua
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/11/trunk/addons/WoWAssist/modules/shaman/global.lua
+END
+enhance.lua
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/14/trunk/addons/WoWAssist/modules/shaman/enhance.lua
+END
+index.xml
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/11/trunk/addons/WoWAssist/modules/shaman/index.xml
+END

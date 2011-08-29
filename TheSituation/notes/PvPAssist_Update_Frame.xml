@@ -1,0 +1,59 @@
+<Ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="PvPAssist_Scripts.lua" />
+	<Frame name= "PvPAssist_Update_Frame" parent="UIParent" movable="true" enableMouse="true">
+		<Size>
+			<AbsDimension x="150" y="30" />
+		</Size>
+		<Anchors>
+			<Anchor point="TOPLEFT">
+				<Offset x="100" y="-100" />
+			</Anchor>
+		</Anchors>
+		<Backdrop bgFile="Interface\FullScreenTextures\OutOfControl" edgeFile="Interface\DialogFrame\UI-DialogBox-Border">
+			<BackgroundInsets>
+				<AbsInset left="5" right="5" top="5" bottom="4" />
+			</BackgroundInsets>
+			<TileSize>
+				<AbsValue val="15" />
+			</TileSize>
+			<EdgeSize>
+				<AbsValue val="15" />
+			</EdgeSize>
+			<Color r="0" g="0" b="0" />
+		</Backdrop>
+			
+			<Layer level="OVERLAY">
+				<FontString name="PvPAssist_UF_TitleDisplay" inherits="GameFontNormal" text="PvPAssist" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="140" y="15" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="8" y="-8" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+			<Layer level="OVERLAY2">
+				<FontString name="PvPAssist_UF_TextDisplay" inherits="GameFontNormal" text="" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="140" y="15" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="8" y="-24" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>			
+		</Layers>
+		<Scripts>
+			<OnLoad>PvPAssist_Update_Frame_OnLoad();</OnLoad>
+			<OnUpdate>PvPAssist_Update_Frame_OnUpdate();</OnUpdate>
+			<OnDragStart>self:StartMoving();</OnDragStart>
+			<OnDragStop>self:StopMovingOrSizing();</OnDragStop>
+			<OnMouseDown>self:StartMoving();</OnMouseDown>
+			<OnMouseUp>self:StopMovingOrSizing();</OnMouseUp>
+		</Scripts>
+	</Frame>
+</Ui>

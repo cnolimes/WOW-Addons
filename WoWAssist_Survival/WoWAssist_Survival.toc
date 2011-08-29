@@ -1,0 +1,8 @@
+## Title: WoWAssist_Survival
+## Version: 1.0
+## Author: Mike
+## Interface: 40300
+## Notes: Yes
+
+WA_Survival_Frames.xml
+WA_Survival_Scripts.lua

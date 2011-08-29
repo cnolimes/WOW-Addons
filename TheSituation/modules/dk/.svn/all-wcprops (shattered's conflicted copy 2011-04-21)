@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/8/trunk/addons/WoWAssist/modules/dk
+END
+blood.lua
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/14/trunk/addons/WoWAssist/modules/dk/blood.lua
+END
+global.lua
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/4/trunk/addons/WoWAssist/modules/dk/global.lua
+END
+index.xml
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/6/trunk/addons/WoWAssist/modules/dk/index.xml
+END
+frost.lua
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/14/trunk/addons/WoWAssist/modules/dk/frost.lua
+END
+unholy.lua
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/14/trunk/addons/WoWAssist/modules/dk/unholy.lua
+END

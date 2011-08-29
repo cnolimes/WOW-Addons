@@ -1,0 +1,159 @@
+﻿<Ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="WA_Blood_Scripts.lua" />
+
+	<Frame name= "WA_Blood_Frame" parent="UIParent" movable="true" enableMouse="true">
+		<Size>
+			<AbsDimension x="80" y="90" />
+		</Size>
+		<Anchors>
+			<Anchor point="TOPLEFT">
+				<Offset x="100" y="-100" />
+			</Anchor>
+		</Anchors>
+		<Backdrop bgFile="Interface\FullScreenTextures\OutOfControl" edgeFile="Interface\DialogFrame\UI-DialogBox-Border">
+			<BackgroundInsets>
+				<AbsInset left="5" right="5" top="5" bottom="4" />
+			</BackgroundInsets>
+			<TileSize>
+				<AbsValue val="15" />
+			</TileSize>
+			<EdgeSize>
+				<AbsValue val="15" />
+			</EdgeSize>
+			<Color r="0" g="0" b="0" />
+		</Backdrop>
+
+
+		<Frames>
+			<Frame name= "WA_Blood_ToggleFrame_1" parent="WA_Blood_Frame" enableMouse="true">
+				<Size>
+					<AbsDimension x="30" y="30" />
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="8" y="-8" />
+					</Anchor>
+				</Anchors>
+				<Layers>
+					<Layer>
+						<Texture name="WA_Blood_ToggleIcon_1">
+							<Size>
+								<AbsDimension x="30" y="30" />
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset x="0" y="0" />
+								</Anchor>
+							</Anchors>
+							<Color r="1" g="1" b="1" />
+						</Texture>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnMouseDown>WA_Blood_ToggleFrame_1_OnClick();</OnMouseDown>
+				</Scripts>	
+			</Frame>
+
+				<Frame name= "WA_Blood_ToggleFrame_2" parent="WA_Blood_Frame" enableMouse="true">
+				<Size>
+					<AbsDimension x="30" y="30" />
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="8" y="-40" />
+					</Anchor>
+				</Anchors>
+				<Layers>
+					<Layer>
+						<Texture name="WA_Blood_ToggleIcon_2">
+							<Size>
+								<AbsDimension x="30" y="30" />
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset x="0" y="0" />
+								</Anchor>
+							</Anchors>
+							<Color r="1" g="1" b="1" />
+						</Texture>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnMouseDown>WA_Blood_ToggleFrame_2_OnClick();</OnMouseDown>
+				</Scripts>	
+			</Frame>
+
+				<Frame name= "WA_Blood_ToggleFrame_3" parent="WA_Blood_Frame" enableMouse="true">
+				<Size>
+					<AbsDimension x="30" y="30" />
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="40" y="-40" />
+					</Anchor>
+				</Anchors>
+				<Layers>
+					<Layer>
+						<Texture name="WA_Blood_ToggleIcon_3">
+							<Size>
+								<AbsDimension x="30" y="30" />
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset x="0" y="0" />
+								</Anchor>
+							</Anchors>
+							<Color r="1" g="1" b="1" />
+						</Texture>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnMouseDown>WA_Blood_ToggleFrame_3_OnClick();</OnMouseDown>
+				</Scripts>	
+			</Frame>
+		</Frames>
+
+		<Layers>
+			<Layer>
+				<Texture name="WA_Blood_Data">
+					<Size>
+						<AbsDimension x="30" y="30" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="40" y="-8" />
+						</Anchor>
+					</Anchors>
+					<Color r="1" g="1" b="1" />
+				</Texture>
+			</Layer>
+			<Layer level="OVERLAY">
+				<FontString name="WA_Blood_T1" inherits="GameFontNormal" text="WA_Blood" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="60" y="15" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="5" y="-70" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad>WA_Blood_Frame_OnLoad();</OnLoad>
+			<OnEvent function = "WA_Blood_Frame_OnEvent"/>
+			<OnUpdate>WA_Blood_Frame_OnUpdate();</OnUpdate>
+
+			<OnDragStart>self:StartMoving();</OnDragStart>
+			<OnDragStop>self:StopMovingOrSizing();</OnDragStop>
+			<OnMouseDown>self:StartMoving();</OnMouseDown>
+			<OnMouseUp>self:StopMovingOrSizing();</OnMouseUp>
+		</Scripts>
+
+	</Frame>
+
+
+
+
+</Ui>
